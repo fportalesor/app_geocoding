@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from geopy.geocoders import MapBox
+from geopy.geocoders import TomTom
 import unidecode
 import numpy as np
 import geopandas as gpd
@@ -8,8 +8,8 @@ import plotly.express as px
 import time
 
 
-st.set_page_config("Geocodificación API Mapbox")
-APP_TITLE = "Geocodificación API Mapbox"
+st.set_page_config("Geocodificación API TomTom")
+APP_TITLE = "Geocodificación API TomTom"
 
 st.title(APP_TITLE)
 
@@ -22,7 +22,7 @@ def convert_df(df):
 csv = convert_df(df_ejemplo)
 
 
-def CONSULTA_API_MAPBOX(api_key_input, df_input):
+def CONSULTA_API_TOMTOM(api_key_input, df_input):
     api_key = api_key_input
     df = df_input
     df['direccion2'] = df['direccion'].apply(lambda x: unidecode.unidecode(x))
@@ -49,14 +49,14 @@ def CONSULTA_API_MAPBOX(api_key_input, df_input):
         if hasattr(x,'longitude') and (x.longitude is not None): 
             return x.longitude
 
-    def get_Mapbox_type(x):
-        if hasattr(x,'raw') and (x.raw['properties'] is not None): 
-            return x.raw['properties']
+    def get_TomTom_type(x):
+        if hasattr(x,'raw') and (x.raw['type'] is not None): 
+            return x.raw['type']
 
-    geolocator = MapBox(api_key=api_key, timeout=1)
+    geolocator = TomTom(api_key=api_key, timeout=1)
     geolocate_column = df0['direccion_completa'].apply(geolocator.geocode)
     df0['direccion_api'] = geolocate_column.apply(get_address)
-    df0['tipo_ubicacion'] = geolocate_column.apply(get_Mapbox_type)
+    df0['tipo_ubicacion'] = geolocate_column.apply(get_TomTom_type)
     df0['lat'] = geolocate_column.apply(get_latitude)
     df0['long'] = geolocate_column.apply(get_longitude)
 
@@ -100,6 +100,7 @@ def display_map(df):
                             color="tipo_ubicacion",zoom=10, mapbox_style= 'carto-positron')
     return fig
 
+
 container = st.container()
 
 with container:
@@ -117,7 +118,7 @@ with container:
     
     api_key_input = st.text_input(label="Ingrese API key")
     if api_key_input:
-        join = CONSULTA_API_MAPBOX(api_key_input, df)
+        join = CONSULTA_API_TOMTOM(api_key_input, df)
 
         st.write("Comienza la geocodificación")
 
@@ -131,8 +132,8 @@ with container:
         st.download_button(
         "Descargue resultado",
         csv_salida,
-        "resultado_API_MAPBOX.csv",
+        "resultado_API_TOMTOM.csv",
         "text/csv",
-        key='download-csv-mapbox')
+        key='download-csv-tomtom')
 
 

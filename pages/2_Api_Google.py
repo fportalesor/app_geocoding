@@ -95,8 +95,9 @@ def CONSULTA_API_GOOGLE(api_key_input, df_input):
 
 
 def display_map(df):
-    px.set_mapbox_access_token("pk.eyJ1Ijoic2hha2Fzb20iLCJhIjoiY2plMWg1NGFpMXZ5NjJxbjhlM2ttN3AwbiJ9.RtGYHmreKiyBfHuElgYq_w")
-    fig = px.scatter_mapbox(df, lat='lat', lon='long', zoom=10)
+    fig = px.scatter_mapbox(df, lat='lat', lon='long', 
+                            hover_data=["direccion_completa", "direccion_api", "tipo_ubicacion"], 
+                            color="tipo_ubicacion",zoom=10, mapbox_style= 'carto-positron')
     return fig
 
 
