@@ -1,6 +1,7 @@
 streamlit
 pandas
 geopandas
+geopy
 unidecode
 warnings
 contextlib
