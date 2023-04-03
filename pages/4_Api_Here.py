@@ -102,7 +102,7 @@ def CONSULTA_API_HERE(api_key_input, df_input):
 
     join["api_consulta"] = 'Here'
 
-    join = join[["id", "direccion_completa", "direccion_api", "tipo_ubicacion", "comuna",
+    join = join[["id", "direccion","direccion_completa", "direccion_api", "tipo_ubicacion", "comuna",
                               "comuna_geo", "comunas_rev","lat", "long", "latitud", "longitud", "api_consulta"]]               
 
     return join
