@@ -1,13 +1,9 @@
 streamlit
 pandas
-geopandas
 geopy
 unidecode
-warnings
-contextlib
-requests
-plotly.express
-urllib3
 numpy
+geopandas
+plotly.express
 time
 
