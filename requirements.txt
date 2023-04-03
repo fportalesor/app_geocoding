@@ -1,0 +1,12 @@
+streamlit
+pandas
+geopandas
+unidecode
+warnings
+contextlib
+requests
+plotly.express
+urllib3
+numpy
+time
+
