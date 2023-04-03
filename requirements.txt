@@ -5,5 +5,3 @@ unidecode
 numpy
 geopandas
 plotly.express
-time
-
