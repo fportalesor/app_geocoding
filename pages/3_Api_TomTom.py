@@ -66,6 +66,18 @@ def CONSULTA_API_TOMTOM(api_key_input, df_input):
     df1 = pd.merge(df, df0, on="direccion_completa", how="left")
     df1.drop(['direccion2'],axis='columns', inplace=True)
 
+    df1['long'] = df1['long'].astype(str)
+    df1['lat'] = df1['lat'].astype(str)
+
+    df1["lat1"] = df1["lat"].str[:3].astype(str)
+    df1["long1"] = df1["long"].str[:3].astype(str)
+
+    df1["lat2"] = df1["lat"].str[4:10].astype(str)
+    df1["long2"] = df1["long"].str[4:10].astype(str)
+
+    df1["latitud"] = df1["lat1"] + "," + df1["lat2"]
+    df1["longitud"] = df1["long1"] + "," + df1["long2"]
+
     df1['long'] = pd.to_numeric(df1['long'],errors='coerce')
     df1['lat'] = pd.to_numeric(df1['lat'],errors='coerce')
 
@@ -81,14 +93,19 @@ def CONSULTA_API_TOMTOM(api_key_input, df_input):
 
     join = pd.DataFrame(puntos_j)
 
-    join.drop(['geometry', 'index_right'], axis='columns', inplace=True)
+    join.drop(['geometry', 'index_right', 'lat1', 'lat2', 'long1', 'long2'], axis='columns', inplace=True)
+
                 
     join['comuna_geo'] = join['comuna_geo'].astype(str)
     join['comuna_geo'] = join['comuna_geo'].apply(lambda x: unidecode.unidecode(x))
 
     join['comunas_rev'] = np.where(join['comuna'] == join['comuna_geo'], "coincide", "no coincide")
 
-    join["api_consulta"] = 'Mapbox'
+    join["api_consulta"] = 'TomTom'
+
+    join = join[["id", "direccion_completa", "direccion_api", "tipo_ubicacion", "comuna",
+                              "comuna_geo", "comunas_rev","lat", "long", "latitud", "longitud", "api_consulta"]]               
+
 
     return join
 
