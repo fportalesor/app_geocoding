@@ -2,46 +2,10 @@ import streamlit as st
 import pandas as pd
 from geopy.geocoders import MapBox
 import unidecode
-import warnings
-import contextlib
-import requests
-from urllib3.exceptions import InsecureRequestWarning
 import numpy as np
 import geopandas as gpd
 import plotly.express as px
 import time
-
-
-old_merge_environment_settings = requests.Session.merge_environment_settings
-
-@contextlib.contextmanager
-def no_ssl_verification():
-    opened_adapters = set()
-
-    
-
-    def merge_environment_settings(self, url, proxies, stream, verify, cert):
-        opened_adapters.add(self.get_adapter(url))
-
-        settings = old_merge_environment_settings(self, url, proxies, stream, verify, cert)
-        settings['verify'] = False
-
-        return settings
-
-    requests.Session.merge_environment_settings = merge_environment_settings
-
-    try:
-        with warnings.catch_warnings():
-            warnings.simplefilter('ignore', InsecureRequestWarning)
-            yield
-    finally:
-        requests.Session.merge_environment_settings = old_merge_environment_settings
-
-        for adapter in opened_adapters:
-            try:
-                adapter.close()
-            except:
-                pass
 
 
 st.set_page_config("Geocodificación API Mapbox")
@@ -90,8 +54,7 @@ def CONSULTA_API_MAPBOX(api_key_input, df_input):
             return x.raw['properties']
 
     geolocator = MapBox(api_key=api_key, timeout=1)
-    with no_ssl_verification():
-        geolocate_column = df0['direccion_completa'].apply(geolocator.geocode)
+    geolocate_column = df0['direccion_completa'].apply(geolocator.geocode)
     df0['direccion_api'] = geolocate_column.apply(get_address)
     df0['tipo_ubicacion'] = geolocate_column.apply(get_Mapbox_type)
     df0['lat'] = geolocate_column.apply(get_latitude)
