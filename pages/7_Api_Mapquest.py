@@ -53,7 +53,7 @@ def CONSULTA_API_MAPQUEST(api_key_input, df_input):
         if hasattr(x,'raw') and (x.raw["geocodeQuality"] is not None): 
             return x.raw["geocodeQuality"]
 
-    geolocator = MapQuest(apikey=api_key, timeout=1)
+    geolocator = MapQuest(api_key=api_key, timeout=1)
     geolocate_column = df0['direccion_completa'].apply(geolocator.geocode)
     df0['direccion_api'] = geolocate_column.apply(get_address)
     df0['tipo_ubicacion'] = geolocate_column.apply(get_Mapquest_type)
