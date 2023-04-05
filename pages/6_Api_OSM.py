@@ -53,7 +53,7 @@ def CONSULTA_API_OSM(api_key_input, df_input):
         if hasattr(x,'raw') and (x.raw['class'] is not None): 
             return x.raw['class']
 
-    geolocator = CONSULTA_API_OSM(user_agent=api_key, timeout=1)
+    geolocator = Nominatim(user_agent=api_key, timeout=5)
     geolocate_column = df0['direccion_completa'].apply(geolocator.geocode)
     df0['direccion_api'] = geolocate_column.apply(get_address)
     df0['tipo_ubicacion'] = geolocate_column.apply(get_OSM_type)
