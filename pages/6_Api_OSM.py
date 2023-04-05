@@ -53,7 +53,7 @@ def CONSULTA_API_OSM(api_key_input, df_input):
         if hasattr(x,'raw') and (x.raw['class'] is not None): 
             return x.raw['class']
 
-    geolocator = CONSULTA_API_OSM(apikey=api_key, timeout=1)
+    geolocator = CONSULTA_API_OSM(user_agent=api_key, timeout=1)
     geolocate_column = df0['direccion_completa'].apply(geolocator.geocode)
     df0['direccion_api'] = geolocate_column.apply(get_address)
     df0['tipo_ubicacion'] = geolocate_column.apply(get_OSM_type)
@@ -130,7 +130,7 @@ with container:
     if uploaded_file:
         df = pd.read_csv(uploaded_file, dtype=str, sep=";", encoding="latin-1")
     
-    api_key_input = st.text_input(label="Ingrese API key")
+    api_key_input = st.text_input(label="Ingrese correo electrónico")
     if api_key_input:
         st.write("Comienza la geocodificación")
         join = CONSULTA_API_OSM(api_key_input, df)
