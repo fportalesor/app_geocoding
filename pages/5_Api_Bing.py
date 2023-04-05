@@ -50,8 +50,8 @@ def CONSULTA_API_BING(api_key_input, df_input):
             return x.longitude
 
     def get_Bing_type(x):
-                    if hasattr(x,'raw') and (x.raw['entityType'] is not None): 
-                        return x.raw['entityType']
+        if hasattr(x,'raw') and (x.raw['entityType'] is not None): 
+            return x.raw['entityType']
 
     geolocator = Bing(apikey=api_key, timeout=1)
     geolocate_column = df0['direccion_completa'].apply(geolocator.geocode)
