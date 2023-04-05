@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from geopy.geocoders import MapBox
+from geopy.geocoders import Nominatim
 import unidecode
 import numpy as np
 import geopandas as gpd
@@ -8,8 +8,8 @@ import plotly.express as px
 import time
 
 
-st.set_page_config("Geocodificación API Mapbox")
-APP_TITLE = "Geocodificación API Mapbox"
+st.set_page_config("Geocodificación API OSM-Nominatim")
+APP_TITLE = "Geocodificación API OSM-Nominatim"
 
 st.title(APP_TITLE)
 
@@ -22,7 +22,7 @@ def convert_df(df):
 csv = convert_df(df_ejemplo)
 
 
-def CONSULTA_API_MAPBOX(api_key_input, df_input):
+def CONSULTA_API_OSM(api_key_input, df_input):
     api_key = api_key_input
     df = df_input
     df['direccion2'] = df['direccion'].apply(lambda x: unidecode.unidecode(x))
@@ -49,14 +49,14 @@ def CONSULTA_API_MAPBOX(api_key_input, df_input):
         if hasattr(x,'longitude') and (x.longitude is not None): 
             return x.longitude
 
-    def get_Mapbox_type(x):
-        if hasattr(x,'raw') and (x.raw['properties'] is not None): 
-            return x.raw['properties']
+    def get_OSM_type(x):
+        if hasattr(x,'raw') and (x.raw['class'] is not None): 
+            return x.raw['class']
 
-    geolocator = MapBox(api_key=api_key, timeout=1)
+    geolocator = CONSULTA_API_OSM(apikey=api_key, timeout=1)
     geolocate_column = df0['direccion_completa'].apply(geolocator.geocode)
     df0['direccion_api'] = geolocate_column.apply(get_address)
-    df0['tipo_ubicacion'] = geolocate_column.apply(get_Mapbox_type)
+    df0['tipo_ubicacion'] = geolocate_column.apply(get_OSM_type)
     df0['lat'] = geolocate_column.apply(get_latitude)
     df0['long'] = geolocate_column.apply(get_longitude)
 
@@ -94,13 +94,13 @@ def CONSULTA_API_MAPBOX(api_key_input, df_input):
     join = pd.DataFrame(puntos_j)
 
     join.drop(['geometry', 'index_right', 'lat1', 'lat2', 'long1', 'long2'], axis='columns', inplace=True)
-                
+
     join['comuna_geo'] = join['comuna_geo'].astype(str)
     join['comuna_geo'] = join['comuna_geo'].apply(lambda x: unidecode.unidecode(x))
 
-    join['comunas_rev'] = np.where(join['comuna'] == join['comuna_geo'], "coincide", "no coincide")       
+    join['comunas_rev'] = np.where(join['comuna'] == join['comuna_geo'], "coincide", "no coincide")
 
-    join["api_consulta"] = 'Mapbox'
+    join["api_consulta"] = 'OSM'
 
     join = join[["id", "direccion","direccion_completa", "direccion_api", "tipo_ubicacion", "comuna",
                               "comuna_geo", "comunas_rev","lat", "long", "latitud", "longitud", "api_consulta"]]               
@@ -123,7 +123,7 @@ with container:
         csv,
         "Archivo de referencia.csv",
         "text/csv",
-        key='download-csv-Mapbox')
+        key='download-csv-OSM')
 
     uploaded_file = st.file_uploader("Elija un archivo csv para realizar la geocodificación", type="csv")
 
@@ -133,7 +133,7 @@ with container:
     api_key_input = st.text_input(label="Ingrese API key")
     if api_key_input:
         st.write("Comienza la geocodificación")
-        join = CONSULTA_API_MAPBOX(api_key_input, df)
+        join = CONSULTA_API_OSM(api_key_input, df)
 
         with st.spinner('El proceso está terminando...'):
             time.sleep(5)
@@ -145,8 +145,8 @@ with container:
         st.download_button(
         "Descargue resultado",
         csv_salida,
-        "resultado_API_MAPBOX.csv",
+        "resultado_API_OSM.csv",
         "text/csv",
-        key='download-csv-mapbox')
+        key='download-osm-here')
 
 

@@ -133,9 +133,8 @@ with container:
     
     api_key_input = st.text_input(label="Ingrese API key")
     if api_key_input:
-        join = CONSULTA_API_GOOGLE(api_key_input, df)
-
         st.write("Comienza la geocodificación")
+        join = CONSULTA_API_GOOGLE(api_key_input, df)
 
         with st.spinner('El proceso está terminando...'):
             time.sleep(5)
