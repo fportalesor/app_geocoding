@@ -18,8 +18,8 @@ def convert_df(df):
 
 
 def display_map(df):
-    fig = px.scatter_mapbox(df, lat='lat', lon='long', color_discrete_sequence= ["red"],
-                            hover_data=["direccion_completa", "direccion_api", "tipo_ubicacion"], 
+    fig = px.scatter_mapbox(df, lat='lat', lon='long',color_continuous_scale=px.colors.sequential.Turbo,
+                            hover_data=["direccion_completa", "direccion_api", "tipo_ubicacion"],  
                             color="tipo_ubicacion",zoom=17, mapbox_style= 'open-street-map', height=500)
     fig.update_traces(marker={'size': 15})
     return fig
