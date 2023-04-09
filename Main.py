@@ -11,15 +11,19 @@ st.set_page_config(
 
 st.write("# APP Geocodificación")
 
+st.markdown("---")
+
 st.markdown("")
 st.markdown("")
 
+link_rev = '[herramienta](http://localhost:8501/Revision_resultados)'
+
 st.markdown(
-    """
+    f"""
 Esta aplicación permite utilizar distintos servicios de geocodificación en un mismo sitio web,
 basándose principalmente en la utilización del cliente de python Geopy (https://geopy.readthedocs.io/en/stable/#).
 
-Por otro lado, se facilita documentación y una herramienta para validar los resultados
+Por otro lado, se facilita documentación y una {link_rev} para validar los resultados
 que se obtienen a partir del uso de los servicios de geocodificación.
 
 <br>
