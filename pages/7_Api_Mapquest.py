@@ -9,9 +9,11 @@ import time
 
 
 st.set_page_config("Geocodificación API Mapquest")
-APP_TITLE = "Geocodificación API Mapquest"
 
-st.title(APP_TITLE)
+st.markdown("""<p style="text-align:center;"><img src="https://fontmeme.com/images/Mapquest-Logo1.jpg"
+alt="whatever" width="160" height= "160"></p>""", unsafe_allow_html=True)
+
+st.markdown("---")
 
 
 df_ejemplo = pd.read_csv("archivo_ejemplo.csv", dtype=str, sep=";", encoding="latin-1")
@@ -130,23 +132,24 @@ with container:
     if uploaded_file:
         df = pd.read_csv(uploaded_file, dtype=str, sep=";", encoding="latin-1")
     
-    api_key_input = st.text_input(label="Ingrese API key")
+    api_key_input = st.text_input(label="Ingrese API key", type="password")
     if api_key_input:
-        st.write("Comienza la geocodificación")
-        join = CONSULTA_API_MAPQUEST(api_key_input, df)
+        if st.button('Comenzar'):
+            st.write("Comienza la geocodificación...")
+            join = CONSULTA_API_MAPQUEST(api_key_input, df)
 
-        with st.spinner('El proceso está terminando...'):
-            time.sleep(5)
-        st.success('Listo!')
-        st.plotly_chart(display_map(join), use_container_width=True)
+            with st.spinner('El proceso está terminando...'):
+                time.sleep(5)
+            st.success('Listo!')
+            st.plotly_chart(display_map(join), use_container_width=True)
 
-        csv_salida = convert_df(join)
+            csv_salida = convert_df(join)
 
-        st.download_button(
-        "Descargue resultado",
-        csv_salida,
-        "resultado_API_Mapquest.csv",
-        "text/csv",
-        key='download-csv-mapquest')
+            st.download_button(
+            "Descargue resultado",
+            csv_salida,
+            "resultado_API_Mapquest.csv",
+            "text/csv",
+            key='download-csv-mapquest')
 
 

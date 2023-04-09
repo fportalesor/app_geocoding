@@ -6,13 +6,16 @@ import numpy as np
 import geopandas as gpd
 import plotly.express as px
 import time
+from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode, DataReturnMode
+
 
 
 st.set_page_config("Geocodificación API Bing")
-APP_TITLE = "Geocodificación API Bing"
 
-st.title(APP_TITLE)
+st.markdown("""<p style="text-align:center;"><img src="https://pbs.twimg.com/media/D-ki97EVAAA5DwA?format=png&name=4096x4096"
+alt="whatever" width="220" height= "80"></p>""", unsafe_allow_html=True)
 
+st.markdown("---")
 
 df_ejemplo = pd.read_csv("archivo_ejemplo.csv", dtype=str, sep=";", encoding="latin-1")
 
@@ -21,7 +24,7 @@ def convert_df(df):
 
 csv = convert_df(df_ejemplo)
 
-
+@st.cache_data
 def CONSULTA_API_BING(api_key_input, df_input):
     api_key = api_key_input
     df = df_input
@@ -101,9 +104,11 @@ def CONSULTA_API_BING(api_key_input, df_input):
     join['comunas_rev'] = np.where(join['comuna'] == join['comuna_geo'], "coincide", "no coincide")
 
     join["api_consulta"] = 'Bing'
+       
 
     join = join[["id", "direccion","direccion_completa", "direccion_api", "tipo_ubicacion", "comuna",
                               "comuna_geo", "comunas_rev","lat", "long", "latitud", "longitud", "api_consulta"]]               
+
 
     return join
 
@@ -114,6 +119,7 @@ def display_map(df):
                             hover_data=["direccion_completa", "direccion_api", "tipo_ubicacion"], 
                             color="tipo_ubicacion",zoom=10, mapbox_style= 'carto-positron')
     return fig
+
 
 container = st.container()
 
@@ -130,23 +136,22 @@ with container:
     if uploaded_file:
         df = pd.read_csv(uploaded_file, dtype=str, sep=";", encoding="latin-1")
     
-    api_key_input = st.text_input(label="Ingrese API key")
+    api_key_input = st.text_input(label="Ingrese API key", type="password")
     if api_key_input:
-        st.write("Comienza la geocodificación")
-        join = CONSULTA_API_BING(api_key_input, df)
+        if st.button('Comenzar'):
+            st.write("Comienza la geocodificación...")
+            join = CONSULTA_API_BING(api_key_input, df)
+        
+            with st.spinner('El proceso está terminando...'):
+                time.sleep(5)
+            st.success('Listo!')
+            st.plotly_chart(display_map(join), use_container_width=True)
+            
+            csv_salida = convert_df(join)
 
-        with st.spinner('El proceso está terminando...'):
-            time.sleep(5)
-        st.success('Listo!')
-        st.plotly_chart(display_map(join), use_container_width=True)
-
-        csv_salida = convert_df(join)
-
-        st.download_button(
-        "Descargue resultado",
-        csv_salida,
-        "resultado_API_BING.csv",
-        "text/csv",
-        key='download-csv-bing')
-
-
+            st.download_button(
+            "Descargue resultado",
+            csv_salida,
+            "resultado_API_BING.csv",
+            "text/csv",
+            key='download-csv-bing')

@@ -1,18 +1,17 @@
 import streamlit as st
 import pandas as pd
-from geopy.geocoders import MapBox
+from geopy.geocoders import ArcGIS
 import unidecode
 import numpy as np
 import geopandas as gpd
 import plotly.express as px
 import time
-from PIL import Image
 
 
-st.set_page_config("Geocodificación API Mapbox")
+st.set_page_config("Geocodificación API Arcgis")
 
-st.markdown("""<p style="text-align:center;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Mapbox_logo_2019.svg/1280px-Mapbox_logo_2019.svg.png"
-alt="whatever" width="220" height= "70"></p>""", unsafe_allow_html=True)
+st.markdown("""<p style="text-align:center;"><img src="https://community.esri.com/t5/image/serverpage/image-id/3157i061FF76E2EA3111A?v=v2"
+alt="whatever" width="160" height= "160"></p>""", unsafe_allow_html=True)
 
 st.markdown("---")
 
@@ -24,8 +23,7 @@ def convert_df(df):
 csv = convert_df(df_ejemplo)
 
 
-def CONSULTA_API_MAPBOX(api_key_input, df_input):
-    api_key = api_key_input
+def CONSULTA_API_ARCGIS(username_input,password_input, df_input):
     df = df_input
     df['direccion2'] = df['direccion'].apply(lambda x: unidecode.unidecode(x))
     df['direccion2']= df['direccion2'].replace('[^a-zA-Z0-9 ]', '', regex=True)
@@ -51,14 +49,16 @@ def CONSULTA_API_MAPBOX(api_key_input, df_input):
         if hasattr(x,'longitude') and (x.longitude is not None): 
             return x.longitude
 
-    def get_Mapbox_type(x):
-        if hasattr(x,'raw') and (x.raw['properties'] is not None): 
-            return x.raw['properties']
+    def get_Arcgis_type(x):
+        if hasattr(x,'raw') and (x.raw["attributes"]["Addr_type"] is not None): 
+            return x.raw["attributes"]["Addr_type"]
 
-    geolocator = MapBox(api_key=api_key, timeout=1)
-    geolocate_column = df0['direccion_completa'].apply(geolocator.geocode)
+    geolocator = ArcGIS(username= username_input, password=password_input,
+    referer="https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?", timeout=1)
+    fieldList= 'address', 'location', 'Addr_type'
+    geolocate_column = df0['direccion_completa'].apply(geolocator.geocode, out_fields= fieldList)
     df0['direccion_api'] = geolocate_column.apply(get_address)
-    df0['tipo_ubicacion'] = geolocate_column.apply(get_Mapbox_type)
+    df0['tipo_ubicacion'] = geolocate_column.apply(get_Arcgis_type)
     df0['lat'] = geolocate_column.apply(get_latitude)
     df0['long'] = geolocate_column.apply(get_longitude)
 
@@ -96,19 +96,18 @@ def CONSULTA_API_MAPBOX(api_key_input, df_input):
     join = pd.DataFrame(puntos_j)
 
     join.drop(['geometry', 'index_right', 'lat1', 'lat2', 'long1', 'long2'], axis='columns', inplace=True)
-                
+
     join['comuna_geo'] = join['comuna_geo'].astype(str)
     join['comuna_geo'] = join['comuna_geo'].apply(lambda x: unidecode.unidecode(x))
 
-    join['comunas_rev'] = np.where(join['comuna'] == join['comuna_geo'], "coincide", "no coincide")       
+    join['comunas_rev'] = np.where(join['comuna'] == join['comuna_geo'], "coincide", "no coincide")
 
-    join["api_consulta"] = 'Mapbox'
+    join["api_consulta"] = 'Arcgis'
 
     join = join[["id", "direccion","direccion_completa", "direccion_api", "tipo_ubicacion", "comuna",
                               "comuna_geo", "comunas_rev","lat", "long", "latitud", "longitud", "api_consulta"]]               
 
     return join
-
 
 
 def display_map(df):
@@ -125,18 +124,19 @@ with container:
         csv,
         "Archivo de referencia.csv",
         "text/csv",
-        key='download-csv-Mapbox')
+        key='download-csv-Arcgis')
 
     uploaded_file = st.file_uploader("Elija un archivo csv para realizar la geocodificación", type="csv")
 
     if uploaded_file:
         df = pd.read_csv(uploaded_file, dtype=str, sep=";", encoding="latin-1")
     
-    api_key_input = st.text_input(label="Ingrese API key", type="password")
-    if api_key_input:
+    un_input = st.text_input(label="Ingrese Nombre de usuario")
+    pw_input = st.text_input(label="Ingrese contraseña", type="password")
+    if pw_input:
         if st.button('Comenzar'):
             st.write("Comienza la geocodificación...")
-            join = CONSULTA_API_MAPBOX(api_key_input, df)
+            join = CONSULTA_API_ARCGIS(un_input, pw_input, df)
 
             with st.spinner('El proceso está terminando...'):
                 time.sleep(5)
@@ -148,8 +148,8 @@ with container:
             st.download_button(
             "Descargue resultado",
             csv_salida,
-            "resultado_API_MAPBOX.csv",
+            "resultado_API_Arcgis.csv",
             "text/csv",
-            key='download-csv-mapbox')
+            key='download-csv-arcgis')
 
 

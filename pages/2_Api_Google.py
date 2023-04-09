@@ -9,10 +9,11 @@ import time
 
 
 st.set_page_config("Geocodificación API Google")
-APP_TITLE = "Geocodificación API Google"
 
-st.title(APP_TITLE)
+st.markdown("""<p style="text-align:center;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Google_Maps_Logo_2020.svg/2275px-Google_Maps_Logo_2020.svg.png"
+alt="whatever" width="130" height= "120"></p>""", unsafe_allow_html=True)
 
+st.markdown("---")
 
 df_ejemplo = pd.read_csv("archivo_ejemplo.csv", dtype=str, sep=";", encoding="latin-1")
 
@@ -131,23 +132,24 @@ with container:
     if uploaded_file:
         df = pd.read_csv(uploaded_file, dtype=str, sep=";", encoding="latin-1")
     
-    api_key_input = st.text_input(label="Ingrese API key")
+    api_key_input = st.text_input(label="Ingrese API key", type="password")
     if api_key_input:
-        st.write("Comienza la geocodificación")
-        join = CONSULTA_API_GOOGLE(api_key_input, df)
+        if st.button('Comenzar'):
+            st.write("Comienza la geocodificación...")
+            join = CONSULTA_API_GOOGLE(api_key_input, df)
 
-        with st.spinner('El proceso está terminando...'):
-            time.sleep(5)
-        st.success('Listo!')
-        st.plotly_chart(display_map(join), use_container_width=True)
+            with st.spinner('El proceso está terminando...'):
+                time.sleep(5)
+            st.success('Listo!')
+            st.plotly_chart(display_map(join), use_container_width=True)
 
-        csv_salida = convert_df(join)
+            csv_salida = convert_df(join)
 
-        st.download_button(
-        "Descargue resultado",
-        csv_salida,
-        "resultado_API_GOOGLE.csv",
-        "text/csv",
-        key='download-csv-google')
+            st.download_button(
+            "Descargue resultado",
+            csv_salida,
+            "resultado_API_GOOGLE.csv",
+            "text/csv",
+            key='download-csv-google')
 
 

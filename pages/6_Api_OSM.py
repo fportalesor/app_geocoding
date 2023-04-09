@@ -9,10 +9,11 @@ import time
 
 
 st.set_page_config("Geocodificación API OSM-Nominatim")
-APP_TITLE = "Geocodificación API OSM-Nominatim"
 
-st.title(APP_TITLE)
+st.markdown("""<p style="text-align:center;"><img src="https://images.squarespace-cdn.com/content/v1/5616ded1e4b0e8660091fc57/1631816707277-CMQLTDY6CQXKO9FTWS78/OpenStreetMap.png"
+alt="whatever" width="240" height= "140"></p>""", unsafe_allow_html=True)
 
+st.markdown("---")
 
 df_ejemplo = pd.read_csv("archivo_ejemplo.csv", dtype=str, sep=";", encoding="latin-1")
 
@@ -132,21 +133,22 @@ with container:
     
     api_key_input = st.text_input(label="Ingrese correo electrónico")
     if api_key_input:
-        st.write("Comienza la geocodificación")
-        join = CONSULTA_API_OSM(api_key_input, df)
+        if st.button('Comenzar'):
+            st.write("Comienza la geocodificación...")
+            join = CONSULTA_API_OSM(api_key_input, df)
 
-        with st.spinner('El proceso está terminando...'):
-            time.sleep(5)
-        st.success('Listo!')
-        st.plotly_chart(display_map(join), use_container_width=True)
+            with st.spinner('El proceso está terminando...'):
+                time.sleep(5)
+            st.success('Listo!')
+            st.plotly_chart(display_map(join), use_container_width=True)
 
-        csv_salida = convert_df(join)
+            csv_salida = convert_df(join)
 
-        st.download_button(
-        "Descargue resultado",
-        csv_salida,
-        "resultado_API_OSM.csv",
-        "text/csv",
-        key='download-osm-here')
+            st.download_button(
+            "Descargue resultado",
+            csv_salida,
+            "resultado_API_OSM.csv",
+            "text/csv",
+            key='download-osm-here')
 
 
