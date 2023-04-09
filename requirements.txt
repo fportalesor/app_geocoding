@@ -5,3 +5,4 @@ unidecode
 numpy
 geopandas
 plotly.express
+st_aggrid
