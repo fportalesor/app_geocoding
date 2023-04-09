@@ -22,7 +22,7 @@ def convert_df(df):
 
 csv = convert_df(df_ejemplo)
 
-
+@st.cache_data()
 def CONSULTA_API_ARCGIS(username_input,password_input, df_input):
     df = df_input
     df['direccion2'] = df['direccion'].apply(lambda x: unidecode.unidecode(x))
@@ -111,7 +111,7 @@ def CONSULTA_API_ARCGIS(username_input,password_input, df_input):
 
 
 def display_map(df):
-    fig = px.scatter_mapbox(df, lat='lat', lon='long', 
+    fig = px.scatter_mapbox(df, lat='lat', lon='long', hover_name="id",
                             hover_data=["direccion_completa", "direccion_api", "tipo_ubicacion"], 
                             color="tipo_ubicacion",zoom=10, mapbox_style= 'carto-positron')
     return fig
@@ -153,3 +153,16 @@ with container:
             key='download-csv-arcgis')
 
 
+link_rev = '[Revision resultados](http://localhost:8501/Revision_resultados)'
+
+with st.sidebar:
+        st.markdown("#### Instrucciones de uso")
+        st.markdown(f"""##### 
+1) Descargar archivo de referencia para cargar datos con el formato solicitado.
+2) Dar click en "Browse files" o en "Drag and drop file here" para cargar el archivo csv con los datos.
+3) Ingresar Api key y luego presionar Enter.
+4) Dar click en el botón Comenzar.
+5) Se mapean los resultados obtenidos.
+6) Dar click en "Descargue resultado". 
+7) Puede visitar el módulo "{link_rev}" para utilizar la herramienta de validación disponible."""
+, unsafe_allow_html=True)

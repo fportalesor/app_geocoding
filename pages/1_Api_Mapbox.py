@@ -6,10 +6,11 @@ import numpy as np
 import geopandas as gpd
 import plotly.express as px
 import time
-from PIL import Image
+
 
 
 st.set_page_config("Geocodificación API Mapbox")
+
 
 st.markdown("""<p style="text-align:center;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Mapbox_logo_2019.svg/1280px-Mapbox_logo_2019.svg.png"
 alt="whatever" width="220" height= "70"></p>""", unsafe_allow_html=True)
@@ -19,11 +20,11 @@ st.markdown("---")
 df_ejemplo = pd.read_csv("archivo_ejemplo.csv", dtype=str, sep=";", encoding="latin-1")
 
 def convert_df(df):
-   return df.to_csv(index=False, sep=";").encode('latin-1')
+    return df.to_csv(index=False, sep=";").encode('latin-1')
 
 csv = convert_df(df_ejemplo)
 
-
+@st.cache_data()
 def CONSULTA_API_MAPBOX(api_key_input, df_input):
     api_key = api_key_input
     df = df_input
@@ -42,7 +43,7 @@ def CONSULTA_API_MAPBOX(api_key_input, df_input):
     def get_address(x):
         if hasattr(x,'address') and (x.address is not None): 
             return x.address
-    
+
     def get_latitude(x):
         if hasattr(x,'latitude') and (x.latitude is not None): 
             return x.latitude
@@ -84,7 +85,7 @@ def CONSULTA_API_MAPBOX(api_key_input, df_input):
     df1['lat'] = pd.to_numeric(df1['lat'],errors='coerce')
 
     puntos = gpd.GeoDataFrame(
-    df1, geometry=gpd.points_from_xy(df1.long , df1.lat))
+        df1, geometry=gpd.points_from_xy(df1.long , df1.lat))
     puntos.set_crs(epsg=4326, inplace=True)
 
     url = "https://www.dropbox.com/s/1n6fzddsb38bok5/comunas_chile_geo.zip?dl=1"
@@ -96,42 +97,43 @@ def CONSULTA_API_MAPBOX(api_key_input, df_input):
     join = pd.DataFrame(puntos_j)
 
     join.drop(['geometry', 'index_right', 'lat1', 'lat2', 'long1', 'long2'], axis='columns', inplace=True)
-                
+
     join['comuna_geo'] = join['comuna_geo'].astype(str)
     join['comuna_geo'] = join['comuna_geo'].apply(lambda x: unidecode.unidecode(x))
 
-    join['comunas_rev'] = np.where(join['comuna'] == join['comuna_geo'], "coincide", "no coincide")       
+    join['comunas_rev'] = np.where(join['comuna'] == join['comuna_geo'], "coincide", "no coincide")   
 
     join["api_consulta"] = 'Mapbox'
 
     join = join[["id", "direccion","direccion_completa", "direccion_api", "tipo_ubicacion", "comuna",
-                              "comuna_geo", "comunas_rev","lat", "long", "latitud", "longitud", "api_consulta"]]               
+    "comuna_geo", "comunas_rev","lat", "long", "latitud", "longitud", "api_consulta"]]   
 
     return join
 
 
 
 def display_map(df):
-    fig = px.scatter_mapbox(df, lat='lat', lon='long', 
-                            hover_data=["direccion_completa", "direccion_api", "tipo_ubicacion"], 
-                            color="tipo_ubicacion",zoom=10, mapbox_style= 'carto-positron')
+    fig = px.scatter_mapbox(df, lat='lat', lon='long', hover_name="id", 
+            hover_data=["direccion_completa", "direccion_api", "tipo_ubicacion"], 
+            color="tipo_ubicacion",zoom=10, mapbox_style= 'carto-positron')
+        
     return fig
 
 container = st.container()
 
 with container:
     st.download_button(
-        "Descargue archivo de referencia",
-        csv,
-        "Archivo de referencia.csv",
-        "text/csv",
-        key='download-csv-Mapbox')
+    "Descargue archivo de referencia",
+    csv,
+    "Archivo de referencia.csv",
+    "text/csv",
+    key='download-csv-Mapbox')
 
     uploaded_file = st.file_uploader("Elija un archivo csv para realizar la geocodificación", type="csv")
 
     if uploaded_file:
         df = pd.read_csv(uploaded_file, dtype=str, sep=";", encoding="latin-1")
-    
+
     api_key_input = st.text_input(label="Ingrese API key", type="password")
     if api_key_input:
         if st.button('Comenzar'):
@@ -151,5 +153,21 @@ with container:
             "resultado_API_MAPBOX.csv",
             "text/csv",
             key='download-csv-mapbox')
+
+link_rev = '[Revision resultados](http://localhost:8501/Revision_resultados)'
+
+with st.sidebar:
+        st.markdown("#### Instrucciones de uso")
+        st.markdown(f"""##### 
+1) Descargar archivo de referencia para cargar datos con el formato solicitado.
+2) Dar click en "Browse files" o en "Drag and drop file here" para cargar el archivo csv con los datos.
+3) Ingresar Api key y luego presionar Enter.
+4) Dar click en el botón Comenzar.
+5) Se mapean los resultados obtenidos.
+6) Dar click en "Descargue resultado". 
+7) Puede visitar el módulo "{link_rev}" para utilizar la herramienta de validación disponible."""
+, unsafe_allow_html=True)
+        
+
 
 
