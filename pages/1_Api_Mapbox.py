@@ -60,6 +60,7 @@ def CONSULTA_API_MAPBOX(api_key_input, df_input):
     geolocate_column = df0['direccion_completa'].apply(geolocator.geocode)
     df0['direccion_api'] = geolocate_column.apply(get_address)
     df0['tipo_ubicacion'] = geolocate_column.apply(get_Mapbox_type)
+    df0['tipo_ubicacion'] = df0['tipo_ubicacion'].astype(str)
     df0['lat'] = geolocate_column.apply(get_latitude)
     df0['long'] = geolocate_column.apply(get_longitude)
 
