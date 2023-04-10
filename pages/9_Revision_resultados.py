@@ -81,8 +81,8 @@ def std_midas(df):
     df["latitud"] = df["lat1"] + "," + df["lat2"]
     df["longitud"] = df["long1"] + "," + df["long2"]
 
-    df['long'] = pd.to_numeric(df['long'],errors='coerce')
-    df['lat'] = pd.to_numeric(df['lat'],errors='coerce')
+    #df['long'] = pd.to_numeric(df['long'],errors='coerce')
+    #df['lat'] = pd.to_numeric(df['lat'],errors='coerce')
 
     puntos = gpd.GeoDataFrame(
         df, geometry=gpd.points_from_xy(df.long , df.lat))
@@ -154,7 +154,7 @@ opciones_csv = st.radio(
 if opciones_csv == 'Por defecto APP':
     file = st.file_uploader("Elija un archivo csv con los resultados para realizar la revisión", type="csv", key="file1")
     if file is not None:
-        df = pd.read_csv(file, dtype=str, sep=";", encoding="utf-8")
+        df = pd.read_csv(file, dtype=str, sep=";", encoding="latin-1")
         df= std_app(df)
 
 else:
