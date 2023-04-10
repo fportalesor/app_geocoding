@@ -85,11 +85,11 @@ def std_midas(df):
     df["latitud"] = df["lat1"] + "," + df["lat2"]
     df["longitud"] = df["long1"] + "," + df["long2"]
     
-    df["lat"] = df["lat1"] + "." + df["lat2"]
-    df["long"] = df["long1"] + "." + df["long2"]
+    df["lat"] = df["lat1"] + "." + df["lat2"].astype(float)
+    df["long"] = df["long1"] + "." + df["long2"].astype(float)
 
-    df['long'] = df['long'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
-    df['lat'] = df['lat'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
+    #df['long'] = df['long'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
+    #df['lat'] = df['lat'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
    
     #df['long'] = df['long'].str.replace('.','', regex=True).astype(float)
     #df['lat'] = df['lat'].str.replace('.','', regex=True).astype(float)
