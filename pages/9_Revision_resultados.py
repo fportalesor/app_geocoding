@@ -67,7 +67,12 @@ def std_app(df):
     
     df["lat"] = df["lat1"] + "." + df["lat2"]
     df["long"] = df["long1"] + "." + df["long2"]
+   
+    df['long'] = pd.to_numeric(df['long'],errors='coerce')
+    df['lat'] = pd.to_numeric(df['lat'],errors='coerce')
     
+    df.drop(['lat1', 'lat2', 'long1', 'long2'], axis='columns', inplace=True)
+   
     return df
 
 
@@ -98,8 +103,8 @@ def std_midas(df):
     df["lat"] = df["lat1"] + "." + df["lat2"]
     df["long"] = df["long1"] + "." + df["long2"]
 
-    #df['long'] = pd.to_numeric(df['long'],errors='coerce')
-    #df['lat'] = pd.to_numeric(df['lat'],errors='coerce')
+    df['long'] = pd.to_numeric(df['long'],errors='coerce')
+    df['lat'] = pd.to_numeric(df['lat'],errors='coerce')
 
     puntos = gpd.GeoDataFrame(
         df, geometry=gpd.points_from_xy(df.long , df.lat))
