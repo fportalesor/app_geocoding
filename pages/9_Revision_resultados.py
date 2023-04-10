@@ -73,14 +73,14 @@ def std_midas(df):
     df['comuna'] = df['comuna'].replace(r"^ +| +$", r"", regex=True)
     
         
-    #df['long'] = df['long'].astype(str)
-    #df['lat'] = df['lat'].astype(str)
+    df['long0'] = df['long'].astype(str)
+    df['lat0'] = df['lat'].astype(str)
 
-    df["lat1"] = df["lat"].astype(str).str[:3]
-    df["long1"] = df["long"].astype(str).str[:3]
+    df["lat1"] = df["lat0"].str[:3].astype(str)
+    df["long1"] = df["long0"].str[:3].astype(str)
 
-    df["lat2"] = df["lat"].astype(str).str[4:12]
-    df["long2"] = df["long"].astype(str).str[4:12]
+    df["lat2"] = df["lat0"].str[4:12].astype(str)
+    df["long2"] = df["long0"].str[4:12].astype(str)
       
     df["latitud"] = df["lat1"] + "," + df["lat2"]
     df["longitud"] = df["long1"] + "," + df["long2"]
