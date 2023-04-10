@@ -72,7 +72,6 @@ def std_midas(df):
     df['comuna'] = df['comuna'].replace(r'\s+', ' ', regex=True)
     df['comuna'] = df['comuna'].replace(r"^ +| +$", r"", regex=True)
     
-        
     df['long'] = df['long'].astype(str)
     df['lat'] = df['lat'].astype(str)
 
@@ -91,8 +90,8 @@ def std_midas(df):
     #df['long'] = df['long'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
     #df['lat'] = df['lat'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
    
-    df['long'] = df['longitud'].str.replace(',', '.', regex=True)
-    df['lat'] = df['latitud'].str.replace(',', '.', regex=True)
+    #df['long'] = df['longitud'].str.replace(',', '.', regex=True)
+    #df['lat'] = df['latitud'].str.replace(',', '.', regex=True)
     #df['long'] = df['long'].str.replace('.','', regex=True).astype(float)
     #df['lat'] = df['lat'].str.replace('.','', regex=True).astype(float)
 
