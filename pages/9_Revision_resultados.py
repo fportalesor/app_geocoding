@@ -56,10 +56,10 @@ def std_app(df):
     
     #df['lat']=  df['lat'].str.encode('utf-8')
     #df['long'] = df['long'].str.encode('utf-8')
-    #df['long'] = pd.to_numeric(df['longitud'].replace(',','.') ,errors='coerce')
-    #df['lat'] = pd.to_numeric(df['longitud'].replace(',','.') ,errors='coerce')
-    df['lat'] = df['latitud'].replace(',','.').astype(float)
-    df['long'] = df['longitud'].replace(',','.').astype(float)
+    df['long'] = pd.to_numeric(df['longitud'].replace(',','.') ,errors='coerce')
+    df['lat'] = pd.to_numeric(df['latitud'].replace(',','.') ,errors='coerce')
+    #df['lat'] = df['latitud'].replace(',','.').astype(float)
+    #df['long'] = df['longitud'].replace(',','.').astype(float)
    
     return df
 
