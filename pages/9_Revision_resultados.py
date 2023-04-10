@@ -173,7 +173,7 @@ if opciones_csv == 'Por defecto APP':
 else:
     file = st.file_uploader("Elija un archivo con los resultados para realizar la revisión",key="file2")
     if file is not None:
-        df = pd.read_csv(file, sep=";", encoding="utf-8", header=None)
+        df = pd.read_csv(file, sep=";", encoding="cp1252", header=None)
         df = std_midas(df)
         
     
