@@ -91,8 +91,8 @@ def std_midas(df):
     #df['long'] = df['long'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
     #df['lat'] = df['lat'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
    
-    df['long'] = df['long'].str.replace(',', '.', regex=True).astype(float)
-    df['lat'] = df['lat'].str.replace(',', '.', regex=True).astype(float)
+    df['long'] = df['long'].str.replace('.','', regex=True).astype(float)
+    df['lat'] = df['lat'].str.replace('.','', regex=True).astype(float)
 
     puntos = gpd.GeoDataFrame(
         df, geometry=gpd.points_from_xy(df.long , df.lat))
