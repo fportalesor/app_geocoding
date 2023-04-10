@@ -71,6 +71,7 @@ def std_midas(df):
     df['comuna'] = df['comuna'].str.title()
     df['comuna'] = df['comuna'].replace(r'\s+', ' ', regex=True)
     df['comuna'] = df['comuna'].replace(r"^ +| +$", r"", regex=True)
+    
         
     df['long'] = df['long'].astype(str)
     df['lat'] = df['lat'].astype(str)
@@ -87,8 +88,8 @@ def std_midas(df):
     df["lat"] = df["lat1"] + "." + df["lat2"]
     df["long"] = df["long1"] + "." + df["long2"]
 
-    #df['long'] = df['longitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
-    #df['lat'] = df['latitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
+    df['long'] = df['long'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
+    df['lat'] = df['lat'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
 
     puntos = gpd.GeoDataFrame(
         df, geometry=gpd.points_from_xy(df.long , df.lat))
