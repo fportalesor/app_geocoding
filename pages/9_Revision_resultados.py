@@ -54,8 +54,8 @@ def std_app(df):
     df = df[["ubicación_válida","id","direccion", "direccion_completa", "direccion_api", "tipo_ubicacion", "comuna",
                               "comuna_geo", "comunas_rev","lat", "long", "latitud", "longitud", "api_consulta"]]
     
-    df['long'] = pd.to_numeric(df['longitud'])
-    df['lat'] = pd.to_numeric(df['longitud'])
+    df['long'] = pd.to_numeric(df['longitud'].replace(',','.'))
+    df['lat'] = pd.to_numeric(df['longitud'].replace(',','.'))
 
    
     return df
