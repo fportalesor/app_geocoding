@@ -54,8 +54,8 @@ def std_app(df):
     df = df[["ubicación_válida","id","direccion", "direccion_completa", "direccion_api", "tipo_ubicacion", "comuna",
                               "comuna_geo", "comunas_rev","lat", "long", "latitud", "longitud", "api_consulta"]]
     
-    df['long'] = pd.to_numeric(df['longitud'].replace(',','.') ,errors='coerce')
-    df['lat'] = pd.to_numeric(df['longitud'].replace(',','.') ,errors='coerce')
+    #df['long'] = pd.to_numeric(df['longitud'].replace(',','.') ,errors='coerce')
+    #df['lat'] = pd.to_numeric(df['longitud'].replace(',','.') ,errors='coerce')
 
    
     return df
@@ -161,13 +161,13 @@ opciones_csv = st.radio(
 if opciones_csv == 'Por defecto APP':
     file = st.file_uploader("Elija un archivo csv con los resultados para realizar la revisión", type="csv", key="file1")
     if file is not None:
-        df = pd.read_csv(file, dtype=str, sep=";", encoding="latin-1")
+        df = pd.read_csv(file, dtype=str, sep=";", encoding="latin-1", converters={'lat':float,'long':float})
         df= std_app(df)
 
 else:
     file = st.file_uploader("Elija un archivo con los resultados para realizar la revisión",key="file2")
     if file is not None:
-        df = pd.read_csv(file, dtype=str, sep=";", encoding="utf-8", header=None)
+        df = pd.read_csv(file, dtype=str, sep=";", encoding="utf-8", header=None, converters={'lat':float,'long':float})
         df = std_midas(df)
         
     
