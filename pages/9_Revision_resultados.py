@@ -76,11 +76,11 @@ def std_midas(df):
     #df['long'] = df['long'].astype(str)
     #df['lat'] = df['lat'].astype(str)
 
-    df["lat1"] = df["lat"].str[:3].astype(str)
-    df["long1"] = df["long"].str[:3].astype(str)
+    df["lat1"] = df["lat"].astype(str).str[:3].astype(str)
+    df["long1"] = df["long"].astype(str).str[:3].astype(str)
 
-    df["lat2"] = df["lat"].str[4:12].astype(str)
-    df["long2"] = df["long"].str[4:12].astype(str)
+    df["lat2"] = df["lat"].astype(str).str[4:12].astype(str)
+    df["long2"] = df["long"].astype(str).str[4:12].astype(str)
 
     df["latitud"] = df["lat1"] + "," + df["lat2"]
     df["longitud"] = df["long1"] + "," + df["long2"]
