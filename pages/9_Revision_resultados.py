@@ -54,12 +54,8 @@ def std_app(df):
     df = df[["ubicación_válida","id","direccion", "direccion_completa", "direccion_api", "tipo_ubicacion", "comuna",
                               "comuna_geo", "comunas_rev","lat", "long", "latitud", "longitud", "api_consulta"]]
     
-    #df['lat']=  df['lat'].str.encode('utf-8')
-    #df['long'] = df['long'].str.encode('utf-8')
     df['long'] = df['longitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
     df['lat'] = df['latitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
-    #df['lat'] = df['latitud'].replace(',','.').astype(float)
-    #df['long'] = df['longitud'].replace(',','.').astype(float)
    
     return df
 
@@ -91,8 +87,8 @@ def std_midas(df):
     df["lat"] = df["lat1"] + "." + df["lat2"]
     df["long"] = df["long1"] + "." + df["long2"]
 
-    df['long'] = pd.to_numeric(df['long'],errors='coerce')
-    df['lat'] = pd.to_numeric(df['lat'],errors='coerce')
+    df['long'] = df['longitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
+    df['lat'] = df['latitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
 
     puntos = gpd.GeoDataFrame(
         df, geometry=gpd.points_from_xy(df.long , df.lat))
