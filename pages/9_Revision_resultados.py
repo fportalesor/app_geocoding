@@ -154,7 +154,7 @@ opciones_csv = st.radio(
 if opciones_csv == 'Por defecto APP':
     file = st.file_uploader("Elija un archivo csv con los resultados para realizar la revisión", type="csv", key="file1")
     if file is not None:
-        df = pd.read_csv(file, dtype=str, sep=";", encoding="latin-1")
+        df = pd.read_csv(file, dtype=str, sep=";", encoding="utf-8")
         df= std_app(df)
 
 else:
