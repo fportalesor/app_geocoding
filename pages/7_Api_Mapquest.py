@@ -10,7 +10,7 @@ import time
 
 st.set_page_config("Geocodificación API Mapquest")
 
-st.markdown("""<p style="text-align:center;"><img src="https://static.wikia.nocookie.net/logopedia/images/0/07/Mapquest_2010.svg/revision/latest/scale-to-width-down/250?cb=20100630165430"
+st.markdown("""<p style="text-align:center;"><img src="https://www.vectorlogo.zone/logos/mapquest/mapquest-ar21.png"
 alt="whatever" width="160" height= "160"></p>""", unsafe_allow_html=True)
 
 st.markdown("---")
