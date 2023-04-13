@@ -12,7 +12,7 @@ import time
 
 st.set_page_config("Geocodificación API Bing")
 
-st.markdown("""<p style="text-align:center;"><img src="https://pbs.twimg.com/media/D-ki97EVAAA5DwA?format=png&name=4096x4096"
+st.markdown("""<p style="text-align:center;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Bing_logo_%282016%29.svg/1280px-Bing_logo_%282016%29.svg.png"
 alt="whatever" width="220" height= "80"></p>""", unsafe_allow_html=True)
 
 st.markdown("---")
