@@ -11,7 +11,7 @@ import time
 st.set_page_config("Geocodificación API Mapquest")
 
 st.markdown("""<p style="text-align:center;"><img src="https://www.vectorlogo.zone/logos/mapquest/mapquest-ar21.png"
-alt="whatever" width="160" height= "160"></p>""", unsafe_allow_html=True)
+alt="whatever" width="220" height= "180"></p>""", unsafe_allow_html=True)
 
 st.markdown("---")
 
