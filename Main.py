@@ -16,8 +16,7 @@ st.markdown("---")
 st.markdown("")
 st.markdown("")
 
-link_rev = '[herramienta](http://localhost:8501/Revision_resultados)'
-st.markdown('<a href="https://fportalesor-app-geocoding-main-z8y7n3.streamlit.app/" target=_top>Revision resultados</a>', unsafe_allow_html=True)
+link_rev = '[herramienta](https://fportalesor-app-geocoding-main-z8y7n3.streamlit.app/)'
 st.markdown(
     f"""
 Esta aplicación permite utilizar distintos servicios de geocodificación en un mismo sitio web,
