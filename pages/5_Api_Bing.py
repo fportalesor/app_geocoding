@@ -157,7 +157,7 @@ with container:
             key='download-csv-bing')
 
 
-link_rev = '[Revision resultados](http://localhost:8501/Revision_resultados)'
+link_rev = '[Revision resultados](https://fportalesor-app-geocoding-main-z8y7n3.streamlit.app/Revision_resultados)'
 
 with st.sidebar:
         st.markdown("#### Instrucciones de uso")
