@@ -87,7 +87,7 @@ def CONSULTA_API_ARCGIS(username_input,password_input, df_input):
     df1, geometry=gpd.points_from_xy(df1.long , df1.lat))
     puntos.set_crs(epsg=4326, inplace=True)
 
-    url = "https://www.dropbox.com/s/1n6fzddsb38bok5/comunas_chile_geo.zip?dl=1"
+    url = "https://www.dropbox.com/s/f0ck8en4qdrff9c/comunas_chile_geo.geojson?dl=1"
 
     comunas = gpd.read_file(url)
 
