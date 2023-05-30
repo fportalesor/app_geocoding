@@ -20,7 +20,7 @@ st.markdown("---")
 df_ejemplo = pd.read_csv("archivo_ejemplo.csv", dtype=str, sep=";", encoding="latin-1")
 
 def convert_df(df):
-    return df.to_csv(index=False, sep=";").encode('latin-1')
+    return df.to_csv(index=False, sep=";").encode('cp1252')
 
 csv = convert_df(df_ejemplo)
 
