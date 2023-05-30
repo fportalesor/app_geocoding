@@ -54,8 +54,8 @@ def std_app(df):
     df = df[["ubicación_válida","id","direccion", "direccion_completa", "direccion_api", "tipo_ubicacion", "comuna",
                               "comuna_geo", "comunas_rev","lat", "long", "latitud", "longitud", "api_consulta"]]
     
-    df['long'] = df['longitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
-    df['lat'] = df['latitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
+    #df['long'] = df['longitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
+    #df['lat'] = df['latitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
    
     return df
 
