@@ -7,10 +7,14 @@ st.set_page_config("API_keys")
 st.markdown("""
 ## 1) Mapbox
 
+#### Obtención API Key
 - Para crear su token de acceso debe ingresar a www.mapbox.com . En el costado superior derecho encontrará la opción para registrarse y crear una cuenta (Sign up).
 - La cuenta se activará una vez ingrese al link de verificación que se envió al e-mail que registró.
 - Con la cuenta activada podrá iniciar sesión. En la página principal (https://account.mapbox.com/) encontrará el token de acceso público (referencia en la figura 2). Este se debe copiar y pegar en la aplicación.
 
+#### Condiciones de uso
+- 100.000 consultas gratuitas por mes
+- Sin restricción de uso por día
 
 """, unsafe_allow_html=True)
             
