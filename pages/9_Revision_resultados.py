@@ -54,9 +54,26 @@ def std_app(df):
     df["ubicación_válida"] = np.where((condicion1) & (condicion2), True, False)
     df = df[["ubicación_válida","id","direccion", "direccion_completa", "direccion_api", "tipo_ubicacion", "comuna",
                               "comuna_geo", "comunas_rev","lat", "long", "latitud", "longitud", "api_consulta"]]
+    df['long'] = df['long'].astype(str)
+    df['lat'] = df['lat'].astype(str)
+
+    df['long'] = df['long'].str.replace('.', '')
+    df['lat'] = df['lat'].str.replace('.', '')
+
+    df["lat1"] = df["lat"].str[:3].astype(str)
+    df["long1"] = df["long"].str[:3].astype(str)
+
+    df["lat2"] = df["lat"].str[3:15].astype(str)
+    df["long2"] = df["long"].str[3:15].astype(str)
+
+    df["lat"] = df["lat1"] + "." + df["lat2"]
+    df["long"] = df["long1"] + "." + df["long2"]
+
+    df["lat"] = df["lat"].astype(float)
+    df["long"] = df["long"].astype(float)
     
-    df['long'] = df['longitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
-    df['lat'] = df['latitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
+    #df['long'] = df['longitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
+    #df['lat'] = df['latitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
    
     return df
 
