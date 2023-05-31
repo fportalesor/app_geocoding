@@ -86,7 +86,7 @@ def CONSULTA_API_GOOGLE(api_key_input, df_input):
     df1, geometry=gpd.points_from_xy(df1.long , df1.lat))
     puntos.set_crs(epsg=4326, inplace=True)
 
-    url = "https://www.dropbox.com/s/f0ck8en4qdrff9c/comunas_chile_geo.geojson?dl=1"
+    url = "https://www.dropbox.com/s/v5pbqsbtuqzu54c/comunas_rm_geo.geojson?dl=1"
 
     comunas = gpd.read_file(url)
 
