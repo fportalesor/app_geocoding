@@ -12,13 +12,17 @@ st.markdown("""
 - La cuenta se activará una vez ingrese al link de verificación que se envió al e-mail que registró.
 - Con la cuenta activada podrá iniciar sesión. En la página principal (https://account.mapbox.com/) encontrará el token de acceso público (referencia en la figura 2). Este se debe copiar y pegar en la aplicación.
 
+""", unsafe_allow_html=True)
+            
+st.image("images/4.png", width=550, use_column_width= 'always')
+
+st.markdown("""
 #### Condiciones de uso
 - 100.000 consultas gratuitas por mes
 - Sin restricción de uso por día
 
 """, unsafe_allow_html=True)
-            
-st.image("images/4.png", width=550, use_column_width= 'always')
+
 
 st.markdown(            
 """
