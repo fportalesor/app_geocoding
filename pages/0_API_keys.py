@@ -12,13 +12,11 @@ st.markdown("""
 - Con la cuenta activada podrá iniciar sesión. En la página principal (https://account.mapbox.com/) encontrará el token de acceso público (referencia en la figura 2). Este se debe copiar y pegar en la aplicación.
 
 
-
-<p align="center">
-<img src= "https://github.com/fportalesor/app_geocoding/blob/e1428d852095558ba65b05de7301e466fc026a34/images/4.png"  width="550" height="280">
-</p>
-"""
+""", unsafe_allow_html=True)
+            
 st.image("https://github.com/fportalesor/app_geocoding/blob/e1428d852095558ba65b05de7301e466fc026a34/images/4.png", caption= '80-day sale data', width=550)
 
+st.markdown(            
 """
 ## 2)	Google
 
