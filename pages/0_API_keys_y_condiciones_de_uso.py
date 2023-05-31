@@ -4,6 +4,10 @@ import streamlit as st
 st.set_page_config("API_keys")
 
 st.markdown("""
+## API keys y condiciones de uso
+""", unsafe_allow_html=True)
+
+st.markdown("""
 Las indicaciones entregadas en este apartado le permitirá crear una cuenta de desarrollador y una Api key (o token de acceso), con la que podrá utilizar los servicios de geocodificación de distintos proveedores, bajo las condiciones de gratuidad que estos entregan.
 Los volúmenes de consultas gratuitas que se pueden realizar varía entre los distintos proveedores. En las condiciones de uso se puede encontrar dicha información.
 
