@@ -15,8 +15,8 @@ st.markdown("# Revisión de resultados")
 st.markdown("")
 
 def convert_df(df):
-   return df.to_csv(index=False, sep=";").encode('latin-1')
-   #return df.to_csv(index=False, sep=";").encode('cp1252')
+   #return df.to_csv(index=False, sep=";").encode('latin-1')
+   return df.to_csv(index=False, sep=";").encode('cp1252')
 
 
 @st.cache_data()
