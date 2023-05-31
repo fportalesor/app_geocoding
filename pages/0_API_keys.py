@@ -14,7 +14,7 @@ st.markdown("""
 
 """, unsafe_allow_html=True)
             
-st.image("https://raw.githubusercontent.com/fportalesor/app_geocoding/blob/e1428d852095558ba65b05de7301e466fc026a34/images/4.png", caption= '80-day sale data', width=550)
+st.image("images/4.png", caption= '80-day sale data', width=550)
 
 st.markdown(            
 """
