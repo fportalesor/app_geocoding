@@ -52,7 +52,7 @@ st.markdown(
 
 """, unsafe_allow_html=True)
 
-st.image("images/9.png", width=550)
+st.image("images/9.png", width=550, height=200)
 
 st.markdown(            
 """
