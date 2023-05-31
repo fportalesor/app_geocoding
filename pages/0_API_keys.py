@@ -26,7 +26,7 @@ st.markdown(
 - Luego de haber ingresado sus datos su cuenta gmail estará vinculada. Para visualizar o crear su api key debe dirigirse a https://console.cloud.google.com/projectselector2/apis/credentials?. Allí deberá seleccionar la opción "My First Project". En la nueva página encontrará la opción "CREAR CREDENCIALES". Luego seleccionar "Clave de API". Finalmente debe dar click en el nombre de la clave API y allí encontrará el dato a copiar.
 """, unsafe_allow_html=True)
 
-st.image("images/7.png", width=550)
+st.image("images/7.png", width=550, use_column_width= 'always')
 
 st.markdown(            
 """
@@ -37,7 +37,7 @@ st.markdown(
 
 """, unsafe_allow_html=True)
 
-st.image("images/5.png", width=550)
+st.image("images/5.png", width=550, use_column_width= 'always')
 
 st.markdown(            
 """
@@ -52,7 +52,7 @@ st.markdown(
 
 """, unsafe_allow_html=True)
 
-st.image("images/9.png", width=550)
+st.image("images/9.png", width=550, use_column_width= 'always')
 
 st.markdown(            
 """
@@ -67,7 +67,7 @@ st.markdown(
 
 """, unsafe_allow_html=True)
 
-st.image("images/8.png", width=550)
+st.image("images/8.png", width=550, use_column_width= 'always')
 
 st.markdown(            
 """
@@ -81,7 +81,7 @@ st.markdown(
 
 """, unsafe_allow_html=True)
 
-st.image("images/6.png", width=550)
+st.image("images/6.png", width=550, use_column_width= 'always')
 
 st.markdown(            
 """
@@ -96,4 +96,4 @@ st.markdown(
 
 """, unsafe_allow_html=True)
 
-st.image("images/10.png", width=550)
+st.image("images/10.png", width=550, use_column_width= 'always')
