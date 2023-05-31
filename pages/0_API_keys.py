@@ -14,7 +14,7 @@ st.markdown("""
 
 """, unsafe_allow_html=True)
             
-st.image("images/4.png", width=550)
+st.image("images/4.png", width=550, use_column_width= 'always')
 
 st.markdown(            
 """
