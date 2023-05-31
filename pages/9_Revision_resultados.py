@@ -71,6 +71,8 @@ def std_app(df):
 
     df["lat"] = df["lat"].astype(float)
     df["long"] = df["long"].astype(float)
+     
+    df.drop(columns=["lat1", "long1", "lat2", "long2"], inplace=True)
     
     #df['long'] = df['longitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
     #df['lat'] = df['latitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
@@ -101,7 +103,7 @@ def std_midas(df):
       
     df["latitud"] = df["lat1"] + "," + df["lat2"]
     df["longitud"] = df["long1"] + "," + df["long2"]
-     
+    
     #df["lat"] = pd.to_numeric(df["lat1"] + "." + df["lat2"])
     #df["long"] = pd.to_numeric(df["long1"] + "." + df["long2"])
 
