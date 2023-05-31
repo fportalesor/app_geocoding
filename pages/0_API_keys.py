@@ -17,7 +17,7 @@ st.markdown("""
 <img src= "https://github.com/fportalesor/app_geocoding/blob/e1428d852095558ba65b05de7301e466fc026a34/images/4.png"  width="550" height="280">
 </p>
 
-
+st.image("https://github.com/fportalesor/app_geocoding/blob/e1428d852095558ba65b05de7301e466fc026a34/images/4.png", caption= '80-day sale data', width=550)
 
 ## 2)	Google
 
