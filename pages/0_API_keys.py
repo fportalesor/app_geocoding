@@ -14,7 +14,7 @@ st.markdown("""
 
 """, unsafe_allow_html=True)
             
-st.image("images/4.png", caption= '80-day sale data', width=550)
+st.image("images/4.png", width=550)
 
 st.markdown(            
 """
@@ -24,23 +24,23 @@ st.markdown(
 - Ingresar con una cuenta de gmail.
 - Ingresar los datos solicitados y aceptar las condiciones de servicio. Dar click a continuar. En el paso 2 se solicita información de contacto. Verificar el contacto con código enviado al celular. En el paso 3 se solicita validar información de pago. Debe ingresar datos de una tarjeta de crédito o débito.
 - Luego de haber ingresado sus datos su cuenta gmail estará vinculada. Para visualizar o crear su api key debe dirigirse a https://console.cloud.google.com/projectselector2/apis/credentials?. Allí deberá seleccionar la opción "My First Project". En la nueva página encontrará la opción "CREAR CREDENCIALES". Luego seleccionar "Clave de API". Finalmente debe dar click en el nombre de la clave API y allí encontrará el dato a copiar.
+""", unsafe_allow_html=True)
 
+st.image("images/7.png", width=550)
 
-<p align="center">
-<img src="7.png"  width="550" height="210">
-</p>
-
+st.markdown(            
+"""
 ## 3)	TomTom
 
 - Para crear su token de acceso debe ingresar a https://developer.tomtom.com/. En el costado superior derecho encontrará la opción para registrarse y crear una cuenta (Register).
 - La cuenta se activará una vez ingrese al link de verificación que se envió al e-mail que registró. Luego ir a la sección Dashboard y encontrará la API Key que se entrega por defecto.
 
+""", unsafe_allow_html=True)
 
-<p align="center">
-<img src="5.png"  width="550" height="300">
-</p>
+st.image("images/5.png", width=550)
 
-
+st.markdown(            
+"""
 ## 4)	Here
 
 - Para crear su token de acceso debe ingresar a https://developer.here.com/ y dar click en "Get started for free".
@@ -50,10 +50,12 @@ st.markdown(
 - En el costado derecho de la nueva página web, dar click en API Keys y luego en Create API Key.
 - Luego copiar la Api key tal como se muestra en la siguiente imagen.
 
-<p align="center">
-<img src="9.png"  width="550" height="180">
-</p>
+""", unsafe_allow_html=True)
 
+st.image("images/9.png", width=550)
+
+st.markdown(            
+"""
 ## 5)	Bing
 
 
@@ -63,10 +65,12 @@ st.markdown(
 - Una vez ingresados los datos de la cuenta debe dirigirse a  "My account" y luego a "My Keys". Se solicitará el nombre de la aplicación (puede ser cualquiera), URL de la aplicación (no es necesario ingresar este dato) y en Application type mantener la opción "Dev/Test". Finalmente dar click en "Create".
 - Con la API KEY creada sólo queda dar click en "Copy key" para luego ingresar este dato dentro de la app.
 
-<p align="center">
-<img src="8.png"  width="550" height="300">
-</p>
+""", unsafe_allow_html=True)
 
+st.image("images/8.png", width=550)
+
+st.markdown(            
+"""
 ## 6)	Mapquest
 
 - Para crear su token de acceso debe ingresar a https://developer.mapquest.com/ y dar click en "Get Started".
@@ -75,10 +79,12 @@ st.markdown(
 - Para crear su API KEY debe dirigirse a https://developer.mapquest.com/user/me/apps y luego dar click en el botón "Create a New Key". En el siguiente cuadro se le solicitará un nombre de la aplicación (puede ser cualquiera) y una "Callback URL" (no es necesario rellenar ese campo). Una vez realizado lo anterior podrá encontrar dentro del nombre de la aplicación el "Cosumer Key", que corresponde al token de acceso.
 
 
-<p align="center">
-<img src="6.png"  width="550" height="200">
-</p>
+""", unsafe_allow_html=True)
 
+st.image("images/6.png", width=550)
+
+st.markdown(            
+"""
 ## 7)	Arcgis
 
 """, unsafe_allow_html=True)
