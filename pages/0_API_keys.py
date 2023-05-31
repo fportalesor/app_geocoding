@@ -87,4 +87,13 @@ st.markdown(
 """
 ## 7)	Arcgis
 
+- Para crear su token de acceso debe ingresar a https://developers.arcgis.com/ y dar click en "Start building for free".
+- Ingresar los datos que piden en el formulario y dar click en Create developer account.
+- En caso de haber usado la opción de Google u otra, seleccionar un modo para verificar la cuenta.
+- Luego aceptar o cambiar el nombre de usuario asignado y aceptar las condiciones de uso de Esri. Dar click en Crear cuenta.
+- Luego ingresar a https://developers.arcgis.com/dashboard/
+- Allí se encontrará la api key creada por default. Se puede copiar tal como aparece en la siguiente imagen. En su defecto se puede crear una nueva.
+
 """, unsafe_allow_html=True)
+
+st.image("images/10.png", width=550)
