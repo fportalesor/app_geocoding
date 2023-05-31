@@ -10,7 +10,7 @@ Los volúmenes de consultas gratuitas que se pueden realizar varía entre los di
 """, unsafe_allow_html=True)
 
 st.markdown("""
-## 1) Mapbox
+### 1) Mapbox
 
 ##### Obtención API Key
 - Para crear su token de acceso debe ingresar a www.mapbox.com . En el costado superior derecho encontrará la opción para registrarse y crear una cuenta (Sign up).
@@ -34,7 +34,7 @@ Referencia: https://www.mapbox.com/pricing
 
 st.markdown(            
 """
-## 2)	Google
+### 2)	Google
 
 ##### Obtención API Key
 - Para crear su token de acceso debe ingresar a https://cloud.google.com/ y dar click en "Empezar gratis".
@@ -58,7 +58,7 @@ Referencia: https://mapsplatform.google.com/pricing/
 
 st.markdown(            
 """
-## 3)	TomTom
+### 3)	TomTom
 
 ##### Obtención API Key
 - Para crear su token de acceso debe ingresar a https://developer.tomtom.com/. En el costado superior derecho encontrará la opción para registrarse y crear una cuenta (Register).
@@ -79,7 +79,7 @@ Referencia: https://developer.tomtom.com/store/maps-api
 
 st.markdown(            
 """
-## 4)	Here
+### 4)	Here
 
 ##### Obtención API Key
 - Para crear su token de acceso debe ingresar a https://developer.here.com/ y dar click en "Get started for free".
@@ -104,7 +104,7 @@ Referencia: https://www.here.com/get-started/pricing
 
 st.markdown(            
 """
-## 5)	Bing
+### 5)	Bing
 
 ##### Obtención API Key
 - Para crear su token de acceso debe ingresar a https://www.bingmapsportal.com/ y dar click en "Sign in".
@@ -129,7 +129,7 @@ Referencia: https://www.microsoft.com/en-us/maps/licensing
 
 st.markdown(            
 """
-## 6)	Mapquest
+### 6)	Mapquest
 
 ##### Obtención API Key
 - Para crear su token de acceso debe ingresar a https://developer.mapquest.com/ y dar click en "Get Started".
@@ -153,7 +153,7 @@ Referencia: https://developer.mapquest.com/plans
 
 st.markdown(            
 """
-## 7)	Arcgis
+### 7)	Arcgis
 
 ##### Obtención API Key
 - Para crear su token de acceso debe ingresar a https://developers.arcgis.com/ y dar click en "Start building for free".
@@ -168,8 +168,9 @@ st.markdown(
 st.markdown("""
 ##### Condiciones de uso
 - No solicita datos de tarjeta de crédito
-- 100.000 consultas gratuitas por mes
-- Sin restricción de uso por día
+- 20.000 consultas gratuitas por mes
+
+Referencia: https://developers.arcgis.com/pricing/
 
 """, unsafe_allow_html=True)
 
