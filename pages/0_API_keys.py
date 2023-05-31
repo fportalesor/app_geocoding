@@ -14,7 +14,7 @@ st.markdown("""
 
 
 <p align="center">
-<img src= "4.png"  width="550" height="280">
+<img src= "images/4.png"  width="550" height="280">
 </p>
 
 
