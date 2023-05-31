@@ -9,6 +9,8 @@ Los volúmenes de consultas gratuitas que se pueden realizar varía entre los di
 
 """, unsafe_allow_html=True)
 
+st.markdown("---")
+
 st.markdown("""
 ### 1) Mapbox
 
@@ -31,6 +33,7 @@ Referencia: https://www.mapbox.com/pricing
 
 """, unsafe_allow_html=True)
 
+st.markdown("---")
 
 st.markdown(            
 """
@@ -56,6 +59,8 @@ Referencia: https://mapsplatform.google.com/pricing/
 
 """, unsafe_allow_html=True)
 
+st.markdown("---")
+
 st.markdown(            
 """
 ### 3)	TomTom
@@ -76,6 +81,8 @@ st.markdown("""
 Referencia: https://developer.tomtom.com/store/maps-api
 
 """, unsafe_allow_html=True)
+
+st.markdown("---")
 
 st.markdown(            
 """
@@ -102,6 +109,8 @@ Referencia: https://www.here.com/get-started/pricing
 
 """, unsafe_allow_html=True)
 
+st.markdown("---")
+
 st.markdown(            
 """
 ### 5)	Bing
@@ -127,6 +136,8 @@ Referencia: https://www.microsoft.com/en-us/maps/licensing
 
 """, unsafe_allow_html=True)
 
+st.markdown("---")
+
 st.markdown(            
 """
 ### 6)	Mapquest
@@ -150,6 +161,8 @@ st.markdown("""
 Referencia: https://developer.mapquest.com/plans
 
 """, unsafe_allow_html=True)
+
+st.markdown("---")
 
 st.markdown(            
 """
