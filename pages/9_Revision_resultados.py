@@ -250,7 +250,6 @@ if file is not None:
             file_name='resultados_no_válidos.csv',
             mime='text/csv')
 
-link_rev = '[Revision resultados](http://localhost:8501/Revision_resultados)'
 
 with st.sidebar:
         st.markdown("#### Instrucciones de uso")
