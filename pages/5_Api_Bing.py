@@ -28,15 +28,15 @@ csv = convert_df(df_ejemplo)
 def CONSULTA_API_BING(api_key_input, df_input):
     api_key = api_key_input
     df = df_input
-    df['direccion2'] = df['direccion'].apply(lambda x: unidecode.unidecode(x))
+    df['direccion2'] = df['direccion'].apply(lambda x: unidecode.unidecode(x) if (pd.notnull(x)) else x)
     df['direccion2']= df['direccion2'].replace('[^a-zA-Z0-9 ]', '', regex=True)
-    df['comuna'] = df['comuna'].apply(lambda x: unidecode.unidecode(x))
+    df['comuna'] = df['comuna'].apply(lambda x: unidecode.unidecode(x) if (pd.notnull(x)) else x)
     df['comuna']= df['comuna'].replace('[^a-zA-Z0-9 ]', '', regex=True)
     df['comuna'] = df['comuna'].str.title()
     df['comuna'] = df['comuna'].replace(r'\s+', ' ', regex=True)
     df['comuna'] = df['comuna'].replace(r"^ +| +$", r"", regex=True)
     df['direccion_completa'] = df['direccion2'] + ", " + df['comuna'] +", "+ df['region'] + ", Chile"
-    df['direccion_completa']= df['direccion_completa'].apply(lambda x: unidecode.unidecode(x))
+    df['direccion_completa']= df['direccion_completa'].apply(lambda x: unidecode.unidecode(x) if (pd.notnull(x)) else x)
 
     df0 = df.drop_duplicates(subset=['direccion'])
 
