@@ -215,7 +215,7 @@ if file is not None:
         height=500,
         width='100%',
         gridOptions=gridoptions,
-        enable_enterprise_modules=True,
+        enable_enterprise_modules=False,
         update_mode=GridUpdateMode.MODEL_CHANGED,
         data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
         fit_columns_on_grid_load=False,
