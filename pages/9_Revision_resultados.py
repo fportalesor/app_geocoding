@@ -19,7 +19,7 @@ def convert_df(df):
    return df.to_csv(index=False, sep=";").encode('cp1252')
 
 
-@st.cache_data()
+##@st.cache_data()
 def display_map(df):
     #url= "https://www.dropbox.com/s/3pb9xfuqlcx619a/limites_com_chile_dpa.zip?dl=1"
     #comunas = gpd.read_file(url)
