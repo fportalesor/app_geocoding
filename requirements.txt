@@ -6,6 +6,3 @@ numpy
 geopandas
 plotly.express
 streamlit-aggrid
-deepparse
-gdown
-scipy==1.10.1
