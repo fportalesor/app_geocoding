@@ -198,6 +198,7 @@ if file is not None:
         v = response['selected_rows']
             
         if v:
+            st.dataframe(v)
             dfs = pd.DataFrame(v)
             direccion = dfs.iloc[0]["direccion_completa"]
             st.markdown(f'##### Resultado de la dirección: {direccion}')
