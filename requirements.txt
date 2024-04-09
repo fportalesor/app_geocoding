@@ -5,4 +5,4 @@ unidecode
 numpy
 geopandas
 plotly.express
-streamlit-aggrid
+streamlit-aggrid == 0.3.3
