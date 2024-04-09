@@ -5,8 +5,6 @@ import unidecode
 import geopandas as gpd
 import numpy as np
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode, DataReturnMode, JsCode
-#import json
-#import osmnx as ox
 
 st.set_page_config("Revisión de resultados", layout="wide")
 
@@ -14,37 +12,19 @@ st.markdown("# Revisión de resultados")
 
 st.markdown("")
 
-def convert_df(df):
-   #return df.to_csv(index=False, sep=";").encode('latin-1')
-   return df.to_csv(index=False, sep=";").encode('cp1252')
 
 
-##@st.cache_data()
+@st.cache_data()
 def display_map(df):
-    #url= "https://www.dropbox.com/s/3pb9xfuqlcx619a/limites_com_chile_dpa.zip?dl=1"
-    #comunas = gpd.read_file(url)
-    #pais = "Chile"
-    #comuna = df.iloc[0]["comuna_geo"]
-    #place_name = comuna + " , " + pais 
-    #area = ox.geocode_to_gdf(place_name)
     fig = px.scatter_mapbox(df, lat='lat', lon='long', color_discrete_sequence= ["red"],
                             hover_data=["direccion_completa", "direccion_api", "tipo_ubicacion"], hover_name="id", 
                             color="tipo_ubicacion",zoom=17, mapbox_style= 'open-street-map', height=500)
     fig.update_traces(marker={'size': 15})
-    #fig.update_layout(
-    #    mapbox={
-    #       "layers": [
-    #           {
-    #               "source": json.loads(area.geometry.to_json()),
-    #               "below": "traces",
-    #               "type": "line",
-    #               "color": "purple",
-    #                "line": {"width": 1.5},
-    #           }]})
+
     
     return fig
 
-##@st.cache_data()
+@st.cache_data()
 def std_app(df):
     condicion1 = df['comuna'] == df['comuna_geo']
     lista_validas = ["{'accuracy': 'point'}", "{'accuracy': 'interpolated'}", "ROOFTOP", "RANGE_INTERPOLATED",
@@ -73,9 +53,6 @@ def std_app(df):
     df["long"] = df["long"].astype(float)
      
     df.drop(columns=["lat1", "long1", "lat2", "long2"], inplace=True)
-    
-    #df['long'] = df['longitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
-    #df['lat'] = df['latitud'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
    
     return df
 
@@ -103,17 +80,6 @@ def std_midas(df):
       
     df["latitud"] = df["lat1"] + "," + df["lat2"]
     df["longitud"] = df["long1"] + "," + df["long2"]
-    
-    #df["lat"] = pd.to_numeric(df["lat1"] + "." + df["lat2"])
-    #df["long"] = pd.to_numeric(df["long1"] + "." + df["long2"])
-
-    #df['long'] = df['long'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
-    #df['lat'] = df['lat'].str.replace('.','', regex=True).str.replace(',', '.', regex=True).astype(float)
-   
-    #df['long'] = df['longitud'].str.replace(',', '.', regex=True)
-    #df['lat'] = df['latitud'].str.replace(',', '.', regex=True)
-    #df['long'] = df['long'].str.replace('.','', regex=True).astype(float)
-    #df['lat'] = df['lat'].str.replace('.','', regex=True).astype(float)
 
     puntos = gpd.GeoDataFrame(
         df, geometry=gpd.points_from_xy(df.long , df.lat))
@@ -147,6 +113,11 @@ def std_midas(df):
                               "comuna_geo", "comunas_rev","lat", "long", "latitud", "longitud", "api_consulta"]]
     
     return join
+
+def convert_df(df):
+   #return df.to_csv(index=False, sep=";").encode('latin-1')
+   return df.to_csv(index=False, sep=";").encode('cp1252')
+
 
 checkbox_renderer = JsCode("""
 class CheckboxRenderer{
