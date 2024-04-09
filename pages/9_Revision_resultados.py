@@ -44,7 +44,7 @@ def display_map(df):
     
     return fig
 
-@st.cache_data()
+##@st.cache_data()
 def std_app(df):
     condicion1 = df['comuna'] == df['comuna_geo']
     lista_validas = ["{'accuracy': 'point'}", "{'accuracy': 'interpolated'}", "ROOFTOP", "RANGE_INTERPOLATED",
