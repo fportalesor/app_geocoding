@@ -1,8 +1,9 @@
 streamlit
-pandas
+pandas==2.0.3
 geopy
 unidecode
 numpy
 geopandas
 plotly.express
 streamlit-aggrid == 0.3.3
+urllib3==1.26.15
