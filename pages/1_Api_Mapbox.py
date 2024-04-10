@@ -140,7 +140,7 @@ with container:
     if uploaded_file:
         df = pd.read_csv(uploaded_file, dtype=str, sep=";", encoding="latin-1")
 
-    region_select = st.sidebar.selectbox('Seleccione un Región:', options=opciones_region, format_func=lambda x: 'Región Metropolitana de Santiago' if x == '' else x)
+        region_select = st.sidebar.selectbox('Seleccione un Región:', options=opciones_region, format_func=lambda x: 'Región Metropolitana de Santiago' if x == '' else x)
     
     api_key_input = st.text_input(label="Ingrese API key", type="password")
     if api_key_input:
