@@ -140,7 +140,7 @@ with container:
     if api_key_input:
         if st.button('Comenzar'):
             st.write("Comienza la geocodificación...")
-            join = CONSULTA_API_GOOGLE(api_key_input, df)
+            join = CONSULTA_API_GOOGLE(api_key_input, df, region_select)
 
             with st.spinner('El proceso está terminando...'):
                 time.sleep(5)
