@@ -16,6 +16,8 @@ alt="whatever" width="240" height= "140"></p>""", unsafe_allow_html=True)
 st.markdown("---")
 
 df_ejemplo = pd.read_csv("archivo_ejemplo.csv", dtype=str, sep=";", encoding="latin-1")
+df_region = pd.read_csv("regiones_chile.csv", dtype=str, sep=";", encoding="latin-1")
+opciones_region = list(df_region['regiones'].drop_duplicates())
 
 def convert_df(df):
    return df.to_csv(index=False, sep=";").encode('latin-1')
@@ -23,7 +25,7 @@ def convert_df(df):
 csv = convert_df(df_ejemplo)
 
 @st.cache_data()
-def CONSULTA_API_OSM(api_key_input, df_input):
+def CONSULTA_API_OSM(api_key_input, df_input, reg_select):
     api_key = api_key_input
     df = df_input
     df['direccion2'] = df['direccion'].apply(lambda x: unidecode.unidecode(x))
@@ -33,7 +35,7 @@ def CONSULTA_API_OSM(api_key_input, df_input):
     df['comuna'] = df['comuna'].str.title()
     df['comuna'] = df['comuna'].replace(r'\s+', ' ', regex=True)
     df['comuna'] = df['comuna'].replace(r"^ +| +$", r"", regex=True)
-    df['direccion_completa'] = df['direccion2'] + ", " + df['comuna'] +", "+ df['region'] + ", Chile"
+    df['direccion_completa'] = df['direccion2'] + ", " + df['comuna'] +", "+ reg_select + ", Chile"
     df['direccion_completa']= df['direccion_completa'].apply(lambda x: unidecode.unidecode(x))
 
     df0 = df.drop_duplicates(subset=['direccion'])
@@ -130,12 +132,14 @@ with container:
 
     if uploaded_file:
         df = pd.read_csv(uploaded_file, dtype=str, sep=";", encoding="latin-1")
+
+    region_select = st.selectbox('Seleccione un Región:', options=opciones_region, index=6)
     
     api_key_input = st.text_input(label="Ingrese correo electrónico")
     if api_key_input:
         if st.button('Comenzar'):
             st.write("Comienza la geocodificación...")
-            join = CONSULTA_API_OSM(api_key_input, df)
+            join = CONSULTA_API_OSM(api_key_input, df, region_select)
 
             with st.spinner('El proceso está terminando...'):
                 time.sleep(5)

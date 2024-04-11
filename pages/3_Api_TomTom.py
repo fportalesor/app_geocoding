@@ -37,7 +37,7 @@ def CONSULTA_API_TOMTOM(api_key_input, df_input, reg_select):
     df['comuna'] = df['comuna'].str.title()
     df['comuna'] = df['comuna'].replace(r'\s+', ' ', regex=True)
     df['comuna'] = df['comuna'].replace(r"^ +| +$", r"", regex=True)
-    df['direccion_completa'] = df['direccion2'] + ", " + df['comuna'] +", "+ df['region'] + ", Chile"
+    df['direccion_completa'] = df['direccion2'] + ", " + df['comuna'] +", "+ reg_select + ", Chile"
     df['direccion_completa']= df['direccion_completa'].apply(lambda x: unidecode.unidecode(x))
 
     df0 = df.drop_duplicates(subset=['direccion'])
