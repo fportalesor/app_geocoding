@@ -25,7 +25,7 @@ def convert_df(df):
 csv = convert_df(df_ejemplo)
 
 @st.cache_data()
-def CONSULTA_API_ARCGIS(username_input,password_input, df_input, reg_select):
+def CONSULTA_API_ARCGIS(api_key, df_input, reg_select):
     df = df_input
     df['direccion2'] = df['direccion'].apply(lambda x: unidecode.unidecode(x))
     df['direccion2']= df['direccion2'].replace('[^a-zA-Z0-9 ]', '', regex=True)
@@ -55,8 +55,8 @@ def CONSULTA_API_ARCGIS(username_input,password_input, df_input, reg_select):
         if hasattr(x,'raw') and (x.raw["attributes"]["Addr_type"] is not None): 
             return x.raw["attributes"]["Addr_type"]
 
-    geolocator = ArcGIS(username= username_input, password=password_input,
-    referer="https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?", timeout=1)
+    geolocator = ArcGIS(
+    referer=f"https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?&token={api_key}", timeout=1)
     fieldList= 'address', 'location', 'Addr_type'
     geolocate_column = df0['direccion_completa'].apply(geolocator.geocode, out_fields= fieldList)
     df0['direccion_api'] = geolocate_column.apply(get_address)
@@ -135,12 +135,12 @@ with container:
     
     region_select = st.selectbox('Seleccione un Región:', options=opciones_region, index=6)
 
-    un_input = st.text_input(label="Ingrese Nombre de usuario")
-    pw_input = st.text_input(label="Ingrese contraseña", type="password")
-    if pw_input:
+    #un_input = st.text_input(label="Ingrese Nombre de usuario")
+    api_key_input = st.text_input(label="Ingrese API key", type="password")
+    if api_key_input:
         if st.button('Comenzar'):
             st.write("Comienza la geocodificación...")
-            join = CONSULTA_API_ARCGIS(un_input, pw_input, df, region_select)
+            join = CONSULTA_API_ARCGIS(api_key_input, df, region_select)
 
             with st.spinner('El proceso está terminando...'):
                 time.sleep(5)
