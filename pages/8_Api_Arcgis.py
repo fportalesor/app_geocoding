@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from geopy.geocoders import ArcGIS
+import requests
 import unidecode
 import numpy as np
 import geopandas as gpd
@@ -29,6 +29,8 @@ def CONSULTA_API_ARCGIS(api_key, df_input, reg_select):
     df = df_input
     df['direccion2'] = df['direccion'].apply(lambda x: unidecode.unidecode(x))
     df['direccion2']= df['direccion2'].replace('[^a-zA-Z0-9 ]', '', regex=True)
+    df['direccion2'] = df['direccion2'].replace(r'\s+', ' ', regex=True)
+    df['direccion2'] = df['direccion2'].replace(r"^ +| +$", r"", regex=True)
     df['comuna'] = df['comuna'].apply(lambda x: unidecode.unidecode(x))
     df['comuna']= df['comuna'].replace('[^a-zA-Z0-9 ]', '', regex=True)
     df['comuna'] = df['comuna'].str.title()
@@ -40,25 +42,31 @@ def CONSULTA_API_ARCGIS(api_key, df_input, reg_select):
     df0 = df.drop_duplicates(subset=['direccion'])
 
     def get_address(x):
-        if hasattr(x,'address') and (x.address is not None): 
-            return x.address
+        if x['candidates'][0]['address'] is not None:
+            return x['candidates'][0]['address']
     
     def get_latitude(x):
-        if hasattr(x,'latitude') and (x.latitude is not None): 
-            return x.latitude
+        if x['candidates'][0]['location']['y'] is not None:
+            return x['candidates'][0]['location']['y']
 
     def get_longitude(x):
-        if hasattr(x,'longitude') and (x.longitude is not None): 
-            return x.longitude
+        if x['candidates'][0]['location']['x'] is not None:
+            return x['candidates'][0]['location']['x']
 
     def get_Arcgis_type(x):
-        if hasattr(x,'raw') and (x.raw["attributes"]["Addr_type"] is not None): 
-            return x.raw["attributes"]["Addr_type"]
+        if x['candidates'][0]['attributes']['Addr_type'] is not None:
+            return x['candidates'][0]['attributes']['Addr_type']
 
-    geolocator = ArcGIS(
-    referer=f"https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?&token={api_key}", timeout=1)
-    fieldList= 'address', 'location', 'Addr_type'
-    geolocate_column = df0['direccion_completa'].apply(geolocator.geocode, out_fields= fieldList)
+
+    fieldList= 'Place_addr, location, Addr_type'
+    api_key_insert= api_key
+
+    def geolocator(address_input):
+        req = requests.get(f'https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?address={address_input}&outFields={fieldList}&f=json&token={api_key_insert}&maxLocations=1')
+        response = req.json()
+        return response
+    
+    geolocate_column = df0['direccion_completa'].apply(geolocator)
     df0['direccion_api'] = geolocate_column.apply(get_address)
     df0['tipo_ubicacion'] = geolocate_column.apply(get_Arcgis_type)
     df0['lat'] = geolocate_column.apply(get_latitude)
@@ -135,8 +143,8 @@ with container:
     
     region_select = st.selectbox('Seleccione un Región:', options=opciones_region, index=6)
 
-    #un_input = st.text_input(label="Ingrese Nombre de usuario")
     api_key_input = st.text_input(label="Ingrese API key", type="password")
+
     if api_key_input:
         if st.button('Comenzar'):
             st.write("Comienza la geocodificación...")
