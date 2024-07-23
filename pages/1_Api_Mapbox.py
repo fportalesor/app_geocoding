@@ -22,8 +22,8 @@ df_region = pd.read_csv("regiones_chile.csv", dtype=str, sep=";", encoding="lati
 opciones_region = list(df_region['regiones'].drop_duplicates())
 
 def convert_df(df):
-    #return df.to_csv(index=False, sep=";")
-    return df.to_csv(index=False, sep=";").encode('cp1252')
+    return df.to_csv(index=False, sep=";")
+    #return df.to_csv(index=False, sep=";").encode('cp1252')
     #return df.to_csv(index=False, sep=";").encode('utf-8')
 
 csv = convert_df(df_ejemplo)
