@@ -158,6 +158,7 @@ if opciones_csv == 'Por defecto APP':
     if file is not None:
         ##df = pd.read_csv(file, sep=";", encoding="cp1252")
         df = pd.read_csv(file, sep=";", encoding="latin-1")
+        df['direccion_api'] = df['direccion_api'].str.encode("latin-1").str.decode("utf-8")
         df = df.loc[(df['lat'].notna()) & (df['lat'] != '')]
         df= std_app(df)
 
