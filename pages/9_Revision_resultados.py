@@ -116,7 +116,7 @@ def std_midas(df):
 
 def convert_df(df):
    #return df.to_csv(index=False, sep=";").encode('latin-1')
-   return df.to_csv(index=False, sep=";").encode('cp1252')
+   return df.to_csv(index=False, sep=";")
 
 
 checkbox_renderer = JsCode("""
