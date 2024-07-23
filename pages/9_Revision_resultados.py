@@ -156,7 +156,8 @@ opciones_csv = st.radio(
 if opciones_csv == 'Por defecto APP':
     file = st.file_uploader("Elija un archivo csv con los resultados para realizar la revisión", type="csv", key="file1")
     if file is not None:
-        df = pd.read_csv(file, sep=";", encoding="cp1252")
+        ##df = pd.read_csv(file, sep=";", encoding="cp1252")
+        df = pd.read_csv(file, sep=";")
         df = df.loc[(df['lat'].notna()) & (df['lat'] != '')]
         df= std_app(df)
 
